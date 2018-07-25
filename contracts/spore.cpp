@@ -15,7 +15,7 @@ namespace eosio {
             {}
 
             // @abi action
-            void createEntity(account_name author, const uint32_t id, const std::string& colorSeed
+            void createentity(account_name author, const uint32_t id, const std::string& colorSeed
                 , const uint32_t entityType
                 )
             {
@@ -23,11 +23,7 @@ namespace eosio {
                 entities.emplace(author, [&](auto& new_entity) {
                     new_entity.id  = id;
                     new_entity.color = colorSeed;
-                    if(entityType == 0) {
-                        new_entity.type = Food;
-                    } else {
-                        new_entity.type = Spore;
-                    }
+                    new_entity.type = entityType;
                 });
 
                 // create corresponding starting coordinate on screen for entity
@@ -43,7 +39,7 @@ namespace eosio {
 
             // @abi action
             // record entity's new location on screen
-            void moveEntity(account_name author, const uint32_t id, 
+            void moveentity(account_name author, const uint32_t id, 
                 const uint32_t x, const uint32_t y){
 
                 // make sure entity exists
@@ -51,7 +47,7 @@ namespace eosio {
                 auto coordinates_lookup = coordinates.find(id);
                 bool exists = entity_lookup != entities.end() && coordinates_lookup != coordinates.end();
                 eosio_assert(exists, 
-                    "moveEntity: Either Entity or Coordinate does not exist");
+                    "moveEntity: Either entity or Coordinate does not exist");
 
                 if(exists) {
                     coordinates.modify(coordinates_lookup, author, [&](auto& modifiable_coordinate) {
@@ -66,7 +62,7 @@ namespace eosio {
             }
 
             // @abi action
-            void killEntity(account_name author, const uint32_t id, const uint32_t entityType){
+            void killentity(account_name author, const uint32_t id, const uint32_t entityType){
                 auto entity_lookup = entities.find(id);
                 entities.erase(entity_lookup);
                 eosio::print("killEntity: entity#", id, " destroyed");
@@ -75,32 +71,33 @@ namespace eosio {
                 coordinates.erase(coordinates_lookup);
                 eosio::print("killEntity: coordinate#", id, " destroyed");
             }
-            
-            /*bool entityExists(account_name author, const uint32_t id) {
-                auto entity_lookup = entities.find(id);
-                return entity_lookup != entities.end();
-            }
 
-            bool coordinateExists(account_name author, const uint32_t id) {
+            void entityexists(const uint32_t id) {
+                auto entity_lookup = entities.find(id);
+                eosio_assert(entity_lookup != entities.end(), 
+                    "entityexists: Entity does not exist");
+            }
+            void coordexists(const uint32_t id) {
                 auto coordinate_lookup = coordinates.find(id);
-                return coordinate_lookup != coordinates.end();
-            }*/
+                eosio_assert(coordinate_lookup != coordinates.end(), 
+                    "coordinateexists: Coordinate does not exist");
+            }
 
         private:
             // entity can be either food or spore
-            enum EntityType{
+            /*enum EntityType{
                 Food, Spore
-            };
+            };*/
             // @abi table Spore i64
-            struct Entity {
+            struct entity {
                 uint64_t id;
                 std::string color;
-                EntityType type;
+                uint64_t type;
 
                 uint64_t primary_key() const { return id; }
-                EOSLIB_SERIALIZE(Entity, (id)(color)(type) )
+                EOSLIB_SERIALIZE(entity, (id)(color)(type) )
             };
-            typedef eosio::multi_index<N(entities), Entity> entity_table;
+            typedef eosio::multi_index<N(entities), entity> entity_table;
             entity_table entities;
 
             struct Coordinate {
@@ -114,13 +111,7 @@ namespace eosio {
             };
             typedef eosio::multi_index<N(coordinates), Coordinate> coordinate_table;
             coordinate_table coordinates;
-
-            /*std::map<uint64_t, uint64_t> playersMapping;//maps to Entity.id
-            std::map<uint64_t, uint64_t> playersCoords;//maps to Coordinate.id
-            std::map<uint64_t, uint64_t> foodMapping;//maps to Entity.id
-            std::map<uint64_t, uint64_t> foodCoords;//maps to Coordinate.id
-            */
     };
 
-    EOSIO_ABI( spore, (createEntity)(moveEntity)(killEntity) )
+    EOSIO_ABI( spore, (createentity)(moveentity)(killentity)(entityexists)(coordexists) )
 }
