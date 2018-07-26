@@ -41,6 +41,7 @@ This repo was built with examples from ff links:
 
 ### Compile (generate ABI and WAST files)
 
+12. alias eosiocpp='opt/eosio/tools/eosiocpp'
 
 12. eosiocpp -o ./spore/spore.wast spore.cpp
 
@@ -48,6 +49,7 @@ This repo was built with examples from ff links:
 
 ### Create your wallet on the EOS node, so we can test it out!
 
+14.1. alias cleos='docker exec -it eosio /opt/eosio/bin/cleos -u http://0.0.0.0:8888 --wallet-url http://0.0.0.0:8888'
 
 14. cleos wallet create -n TEXT=chris
 
