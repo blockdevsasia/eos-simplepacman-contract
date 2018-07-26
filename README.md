@@ -33,7 +33,7 @@ This repo was built with examples from ff links:
 
 10. git clone https://github.com/MNLBlockDevs/eos-simplepacman-contract
 
-11. cd eosspore/contracts
+11. cd eos-simplepacman-contract/eosspore/contracts
 
 ### Compile (generate ABI and WAST files)
 
