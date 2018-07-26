@@ -77,5 +77,22 @@ This repo was built with examples from ff links:
 
 ## Next: Build the web app!
 
+### Notes:
+* Python 2.7
+* Latest Node
 
+### cd back to eosspore
+cd ..
+
+### install dependencies
+npm install
+
+### serve with hot reload at localhost:8080
+npm run dev
+
+### build for production with minification
+npm run build
+
+### serve your production build at localhost:5000
+npm run serve
 
