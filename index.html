@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <script src="https://cdn.jsdelivr.net/npm/eosjs@16.0.0/lib/eos.min.js"
+            integrity="sha512-vNyLnOEb7uFmEtVbLnyZQ9/k4zckM2Vu3jJOKq6XfWEVZG0yKcjDExVN4EQ7e3F+rePWRncMolI2xFi/3qo62A=="
+            crossorigin="anonymous"></script>
+
+      <script>
+            eos = Eos(
+              {
+                contractName: "spore.ctr", // Contract name
+                contractSender: "tester", // User executing the contract (should be paired with private key)
+                chainId : "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+                clientConfig: {
+                  keyProvider: ['5JPgSSJkRDThqLqYVuJKfURQ4h5FoEKRtQEaSuKjGEcxZpYbWNp'],//['5KGFY9NmRraPRAcYPJVf1TSarQGE8XVaNLFVFKjjquczScxuUi4'], // Your private key
+                  httpEndpoint: 'http://127.0.0.1:8888' // EOS http endpoint
+                }
+              }
+            )
+            console.log('getblock', eos.getBlock())
+      </script>
+
+    <meta charset="utf-8">
+    <title>Vue + Phaser 3</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
