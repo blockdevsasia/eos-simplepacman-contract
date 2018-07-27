@@ -1,33 +1,37 @@
 This repo was built with examples from ff links:
-* https://developers.eos.io/eosio-nodeos/docs/docker-quickstart
+* https://developers.eos.io/eosio-nodeos/docs/getting-the-code
 
 * https://steemit.com/devs/@eos-asia/eos-smart-contracts-part-1-getting-started-ping-equivalent-in-eos
 
 
 # Instructions:
 
+* this is not the only way to install an eos node and may be outdated by the time you read this. Do checkout other tutorials if you get stuck. 
 
-### Setup EOS Node
+### Setup EOS Node (follow: https://developers.eos.io/eosio-nodeos/docs/install-nodeos)
 
+1. git clone https://github.com/EOSIO/eos --recursive
 
-1. docker pull eosio/eos-dev 
+2. cd eos
 
-- from (https://developers.eos.io/eosio-nodeos/docs/docker-quickstart)
+3. ./eosio_build.sh
 
-2. sudo docker run --rm --name eosio -d -p 8888:8888 -p 9876:9876 -v /tmp/work:/work -v /tmp/eosio/data:/mnt/dev/data -v /tmp/eosio/config:/mnt/dev/config eosio/eos-dev  /bin/bash -c "nodeos -e -p eosio --plugin eosio::wallet_api_plugin --plugin eosio::wallet_plugin --plugin eosio::producer_plugin --plugin eosio::history_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --plugin eosio::http_plugin -d /mnt/dev/data --config-dir /mnt/dev/config --http-server-address=0.0.0.0:8888 --access-control-allow-origin=* --contracts-console"
+4. Validate Build
 
- - from (https://developers.eos.io/eosio-nodeos/docs/docker-quickstart)
+On Linux platforms:
+~/opt/mongodb/bin/mongod -f ~/opt/mongodb/mongod.conf &
 
-3. Edit config.ini: sudo docker exec -i -t eosio /bin/bash
+On MacOS:
+/usr/local/bin/mongod -f /usr/local/etc/mongod.conf &
 
-4. vi mnt/dev/config/config.ini
+Followed by this on all platforms:
+cd build
+make test
 
-5. change *"http-validate-host = 1"* to *"http-validate-host = 0"*
-
-6. View node outputs: docker attach eosio
+5. Build nodeos (https://developers.eos.io/eosio-nodeos/docs/local-single-node-testnet) 
+cd build/programs/nodeos ./nodeos -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin
 
 ### Clone EOS Spore contract, marvel at the code/get confused
-
 
 7. Open new terminal
 
@@ -41,15 +45,11 @@ This repo was built with examples from ff links:
 
 ### Compile (generate ABI and WAST files)
 
-12. alias eosiocpp='opt/eosio/tools/eosiocpp'
-
 12. eosiocpp -o ./spore/spore.wast spore.cpp
 
 13. eosiocpp -g ./spore/spore.abi spore.cpp
 
 ### Create your wallet on the EOS node, so we can test it out!
-
-14.1. alias cleos='docker exec -it eosio /opt/eosio/bin/cleos -u http://0.0.0.0:8888 --wallet-url http://0.0.0.0:8888'
 
 14. cleos wallet create -n TEXT=chris
 

@@ -10,3 +10,7 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
+
+contracts/spore/*.abi
+contracts/spore/*.wasm
+contracts/spore/*.wast
