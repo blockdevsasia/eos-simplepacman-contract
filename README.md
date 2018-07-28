@@ -3,13 +3,14 @@ This repo was built with examples from ff links:
 
 * https://steemit.com/devs/@eos-asia/eos-smart-contracts-part-1-getting-started-ping-equivalent-in-eos
 
+* https://medium.com/@TeaSea1/how-to-install-eos-on-windows-ac1b6c7d8369
 
 # Instructions:
 
 * this is not the only way to install an eos node and may be outdated by the time you read this. Do checkout other tutorials if you get stuck. 
 * For Windows (using Ubuntu CLI), create a directory in C://. The path for this directory in Ubuntu CLI is /mnt/c/<DirectoryName>.
 
-### Setup EOS Node (follow: https://developers.eos.io/eosio-nodeos/docs/install-nodeos. Windows: https://medium.com/@TeaSea1/how-to-install-eos-on-windows-ac1b6c7d8369)
+### Setup EOS Node (follow: https://developers.eos.io/eosio-nodeos/docs/install-nodeos or https://medium.com/@TeaSea1/how-to-install-eos-on-windows-ac1b6c7d8369)
 
 1. git clone https://github.com/EOSIO/eos --recursive
 
